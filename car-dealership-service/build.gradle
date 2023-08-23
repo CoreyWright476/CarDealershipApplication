@@ -1,0 +1,38 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.sky.nebula'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+	implementation('org.springframework.boot:spring-boot-starter:3.1.0')
+	implementation('org.springframework.boot:spring-boot-test:3.0.4')
+	implementation 'org.springframework.boot:spring-boot-starter-web:3.1.0'
+	implementation 'io.cucumber:cucumber-java:7.11.1'
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:3.1.0"
+	implementation 'com.h2database:h2:2.1.214'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:3.0.4'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.1.0'
+	testImplementation(platform("io.cucumber:cucumber-bom:7.11.1"))
+	testImplementation('io.cucumber:cucumber-java:7.11.1')
+	testImplementation('io.cucumber:cucumber-junit-platform-engine:7.11.1')
+	testImplementation('org.junit.platform:junit-platform-suite:1.9.2')
+	testImplementation('org.junit.jupiter:junit-jupiter:5.9.2')
+	testImplementation('junit:junit:4.13.2')
+	implementation 'com.github.mvallim:java-fluent-validator:1.10.0'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

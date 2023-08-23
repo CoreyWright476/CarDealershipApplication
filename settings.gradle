@@ -1,2 +1,4 @@
-rootProject.name = 'CarDealershipApplication'
+rootProject.name = 'carDealershipApp'
+include 'functional'
+include 'car-dealership-service'
 
