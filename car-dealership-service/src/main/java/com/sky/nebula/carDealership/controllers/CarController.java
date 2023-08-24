@@ -76,4 +76,10 @@ public class CarController {
         return new ResponseEntity<String>("Database Cleared", HttpStatus.OK);
     }
 
+    @PutMapping("/admin/put")
+    public ResponseEntity<Map<String, String>> updateCar(@Valid @RequestBody Car updatedCar) {
+        carService.updateCar(updatedCar);
+        return new ResponseEntity<>(Map.of("Description", "Car updated"), HttpStatus.OK);
+    }
+
 }

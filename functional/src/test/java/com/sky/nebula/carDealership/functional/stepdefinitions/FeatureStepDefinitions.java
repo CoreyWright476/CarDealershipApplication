@@ -37,6 +37,7 @@ public class FeatureStepDefinitions {
     @DataTableType
     public Car carEntry(Map<String, String> entry) {
         return new Car(
+                Long.parseLong(entry.get("id")),
                 entry.get("brand"),
                 entry.get("model"),
                 Integer.parseInt(entry.get("year")),
@@ -160,6 +161,35 @@ public class FeatureStepDefinitions {
 
     @Then("clear the database for the next test by calling the {string} endpoint")
     public void clearTheDatabaseForTheNextTestByCallingTheEndpoint(String endpoint) {
+    }
+
+    @When("the client sends a {string} request to {string} endpoint with the following updated car information:")
+    public void theClientSendsARequestToEndpointToUpdateACarWithTheFollowingString(String requestType, String endpoint, DataTable dataTable) throws InvalidDataException {
+
+        List<Map<String, String>> dataTableList = dataTable.asMaps(String.class, String.class);
+
+        if (!"PUT".equals(requestType)) {
+            throw new InvalidDataException(requestType + " is not a valid request");
+        }
+
+        // Use the first row of the DataTable as the data for the PUT request
+        Map<String, String> putData = dataTableList.get(0);
+
+        // Convert the putData Map to JSON
+        String jsonData;
+        System.out.println("putData contents: " + putData);
+
+        try {
+            jsonData = new ObjectMapper().writeValueAsString(putData);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to convert PUT data to JSON: " + e.getMessage(), e);
+        }
+
+        // Send the PUT request manually using RestAssured
+        response = given()
+                .contentType(ContentType.JSON)
+                .body(jsonData)
+                .put(endpoint);
     }
 }
 

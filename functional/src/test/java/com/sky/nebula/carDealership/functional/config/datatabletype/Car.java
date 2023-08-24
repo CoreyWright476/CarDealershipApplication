@@ -16,7 +16,7 @@ public class Car {
 
     private String colour;
 
-    public Car(String brand, String model, Integer year, Integer price, Integer mileage, String colour) {
+    public Car(long id, String brand, String model, Integer year, Integer price, Integer mileage, String colour) {
         this.brand = brand;
         this.model = model;
         this.year = year;

@@ -9,7 +9,6 @@ public class CarDealershipApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CarDealershipApplication.class, args);
 
-		//test commit
 	}
 
 }
