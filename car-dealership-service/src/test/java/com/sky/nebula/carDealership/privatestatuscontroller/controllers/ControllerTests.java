@@ -12,9 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -258,4 +256,33 @@ public class ControllerTests {
         System.out.println(response);
     }
 
+    @Test
+    public void updateCarMethodTest() {
+        // Create a sample car and its updated version for testing.
+        Car existingCar = new Car(1L, "Brand1", "Model1", 2022, 20000, 10000, "Red");
+        Car updatedCar = new Car(1L, "Brand2", "Model2", 2022, 25999, 65438, "Green");
+
+        // Mock the behavior of the carRepository's findById method to return the existingCar.
+        Mockito.when(carRepository.findById(updatedCar.getId())).thenReturn(Optional.of(existingCar));
+
+        // Call the updateCar method to update the existingCar.
+        carService.updateCar(updatedCar);
+        // Assertions for the updated car fields.
+        Assertions.assertEquals(updatedCar.getBrand(), existingCar.getBrand());
+        Assertions.assertEquals(updatedCar.getModel(), existingCar.getModel());
+        Assertions.assertEquals(updatedCar.getYear(), existingCar.getYear());
+        Assertions.assertEquals(updatedCar.getPrice(), existingCar.getPrice());
+        Assertions.assertEquals(updatedCar.getMileage(), existingCar.getMileage());
+        Assertions.assertEquals(updatedCar.getColour(), existingCar.getColour());
+
+        // Test the response from the controller.
+        ResponseEntity<Map<String, String>> response = carController.updateCar(updatedCar);
+        String key = "Description";
+        String value = "Car updated";
+
+        Assertions.assertTrue(Objects.requireNonNull(response.getBody()).containsKey(key));
+        Assertions.assertTrue(response.getBody().containsValue(value));
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+    }
 }

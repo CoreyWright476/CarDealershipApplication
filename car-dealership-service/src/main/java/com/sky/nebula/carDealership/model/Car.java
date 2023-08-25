@@ -17,6 +17,10 @@ public class Car {
 
     }
 
+    public Car(Long id, String brand, String model, Integer year, Integer price, Integer mileage, String colour) {
+    }
+
+
     public Long getId() {
         return id;
     }
